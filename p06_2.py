@@ -26,24 +26,30 @@ def on_throw():
     except:
         messagebox.showerror("Hiba")
 
+#!Feluleti resz, innen csak fuggvenyeket hivunk
 root = tk.Tk()
 root.title("Kockadobasok statisztikaja")
 root.geometry("450x450")
 
 title = tk.Label(root, text="Press the button", font=("Arial", 16))
-title.pack(pady=30)
+title.grid(row = 0,column = 1, pady=20)
+#title.pack(pady=30)
 
 dobasok_szama_bemenet = tk.StringVar(value='10')
 dobasszam = tk.Entry(root, textvariable=dobasok_szama_bemenet, width=10)
-dobasszam.pack(pady=10)
+dobasszam.grid(row=1, column = 0, pady=29)
+#dobasszam.pack(pady=10)
 
 button = tk.Button(root,text="Throw",command=on_throw)
-button.pack()
+button.grid(row=1, column = 2, pady=20)
+#button.pack()
 
 eredmeny_cimke_szovege = tk.StringVar(value="......")
 eredmeny_cimke = tk.Label(root, textvariable=eredmeny_cimke_szovege,font=("Arial", 20))
-eredmeny_cimke.pack(pady=20)
+eredmeny_cimke.grid(row=2, column = 1, pady=20)
+#eredmeny_cimke.pack(pady=20)
 
 kilepes = tk.Button(root, text="Exit",command=root.destroy, bg="red")
-kilepes.pack()
+kilepes.grid(row=3, column = 1, pady=20)
+#kilepes.pack()
 tk.mainloop()
