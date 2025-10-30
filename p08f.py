@@ -9,12 +9,12 @@ def adatkeres():
         valasz.raise_for_status()
         adat  = valasz.json()
         label.config(text=adat["uzenet"])
-        app.dobasok_szama_bemenet.set(adat["uzenet"])
+        app.throws_num_input.set(adat["uzenet"])
     except:
-        messagebox.showerror("Hiba", "Nem sikerult a kapcsolat")
+        messagebox.showerror("Error", "Nem sikerult a kapcsolat")
 
 root = tk.Tk()
-app= p07n.KockaDobasMentes(root)
+app= p07n.SaveDiceThrow(root)
 
 api_button = tk.Button(root, text="Lekeres", command = adatkeres) #gomb rootba helyezese
 api_button.grid(row = 4, column = 0, pady = 10)
