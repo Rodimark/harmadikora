@@ -17,15 +17,17 @@ class SaveDiceThrow(p07.DiceThrow):
         self.sql_save = tk.Button(master, text="Save to SQL", command=self.sql_save)
         self.sql_save.grid(row=3, column=2)
 
-
+        self.every_label_text = tk.StringVar(value="...")
+        self.every_label = tk.Label(self.master, textvariable=self.every_label_text, font=("Ariel", 16))
+        self.every_label.grid(row=5, column=0, columnspan=4, pady=10)
 
     def sql_save(self):
         try:
-            conn = sqlite3.connect("kokadobas.db")
-            db = conn.currow()
+            conn = sqlite3.connect("kockadobas.db")
+            db = conn.cursor()
             db.execute("CREATE TABLE IF NOT EXISTS dice (throws INT, one INT, two INT, three INT, four INT,  five INT, six INT)")
 
-            db.execute("INSERT INTO dice VALUES (?, ?, ?, ?, ?, ?, ?)", (self.thrownum,
+            db.execute("INSERT INTO dice VALUES (?, ?, ?, ?, ?, ?, ?)", (self.throws_num,
                                                                           self.results[1],
                                                                           self.results[2],
                                                                           self.results[3],
@@ -35,10 +37,29 @@ class SaveDiceThrow(p07.DiceThrow):
                        )
             conn.commit()
             conn.close()
+            self.osszesites_sql()
         except:
             messagebox.showerror("Error", "Saving to SQL failed!")
 
 
+    def osszesites_sql(self):
+        try:
+            conn = sqlite3.connect("kockadobas.db")
+            db = conn.cursor()
+            db.execute("SELECT one,two,three,four,five,six FROM dice")
+            rows = db.fetchall()
+            sum = [0 for _ in range(7)]
+            for row in rows:
+                sum[1] += row[0]
+                sum[2] += row[1]
+                sum[3] += row[2]
+                sum[4] += row[3]
+                sum[5] += row[4]
+                sum[6] += row[5]
+            conn.close()
+            self.every_label_text.set(f"One: {sum[1]}, Two: {sum[2]}, Three: {sum[3]}, Four: {sum[4]}, Five: {sum[5]}, Six: {sum[6]}")
+        except:
+            messagebox.showerror("Error", "Saving to SQL failed!")
     def save_to_csv(self):
         filename = "mentes.csv"
         try:

@@ -5,7 +5,7 @@ app = Flask(__name__)
 @app.route("/api/data")
 def get_data():
     num = random.randint(10,510)
-    return jsonify({"num":num})
+    return jsonify({"uzenet":f"{num}"})
 
 if __name__ == "__main__":
     app.run()

@@ -21,7 +21,5 @@ api_button.grid(row = 4, column = 0, pady = 10)
 
 label = tk.Label(root, text="...")
 label.grid(row = 4, column = 1, pady = 10)
-app.mainloop()
 
-root.destroy()
 root.mainloop()
